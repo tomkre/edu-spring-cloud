@@ -5,11 +5,13 @@ import org.junit.jupiter.api.Test;
 import org.mockito.BDDMockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.reactive.AutoConfigureWebTestClient;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.core.env.Environment;
 import org.springframework.http.MediaType;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.reactive.server.WebTestClient;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
@@ -20,7 +22,9 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@WebMvcTest(GreetingController.class)
+@SpringBootTest
+@AutoConfigureMockMvc
+@ActiveProfiles("dev")
 class ApplicationTests {
 
 	@Autowired
@@ -28,6 +32,9 @@ class ApplicationTests {
 
 	@MockBean
 	private GreetingService greetingService;
+
+	@Autowired
+	private Environment environment;
 
 	@Test
 	@SneakyThrows
@@ -38,6 +45,11 @@ class ApplicationTests {
 			.andExpectAll(
 				status().isNotFound()
 			);
+	}
+
+	@Test
+	void shouldVerifyConfigProps() {
+		assertThat(environment.getProperty("app.name")).isEqualTo("master [dev]");
 	}
 
 }

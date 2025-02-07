@@ -16,6 +16,10 @@ jobs:
           distribution: temurin
           java-version: 21
           cache: gradle
+      - name: Build, unit and integration tests
+        run: |
+          chmod +x gradlew
+          ./gradlew build
       - name: Code vulnerability scanning
         uses: anchore/scan-action@v6
         id: scan
@@ -23,11 +27,6 @@ jobs:
           path: "${{ github.workspace }}"
           fail-build: false
           severity-cutoff: high
-      - name: Print workspace
-        run: |
-          echo "workspace: ${{ github.workspace }}"
-          echo "pwd: $(pwd)"
-          echo "ls: $(ls)"
       - name: Upload sarif file
         uses: actions/upload-artifact@v4
         with:
@@ -38,7 +37,3 @@ jobs:
         if: success() || failure()
         with:
           sarif_file: ${{ steps.scan.outputs.sarif }}
-      - name: Build, unit and integrationt tests
-        run: |
-          chmod +x gradlew
-          ./gradlew build

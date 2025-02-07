@@ -20,9 +20,14 @@ jobs:
         uses: anchore/scan-action@v6
         id: scan
         with:
-#          path: "${{ github.workspace }}"
+          path: "${{ github.workspace }}"
           fail-build: false
           severity-cutoff: high
+      - name: Print workspace
+        run: |
+          echo "workspace: ${{ github.workspace }}"
+          echo "pwd: $(pwd)"
+          echo "ls: $(ls)"
       - name: Upload sarif file
         uses: actions/upload-artifact@v4
         with:

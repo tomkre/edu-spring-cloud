@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Home</title>
+</head>
+<body>
+    <h1>Home</h1>
+    <p>Author: <span th:text="tom"/></p>
+    <p>Level: <span th:text="master"/></p>
+    <p>Num of skills: <span th:text="${#lists.size(skills)}"/></p>
+    <form th:method="put">
+        <input name="name">
+        <button class="btn btn-primary">Put</button>
+    </form>
+</body>
+</html>

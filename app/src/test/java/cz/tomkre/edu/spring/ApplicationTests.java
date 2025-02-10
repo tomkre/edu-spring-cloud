@@ -18,6 +18,7 @@ class ApplicationTests {
 
 	@Test
 	void shouldHandle() {
+		System.out.println("Running test shouldHandle...");
 		repository.save(Developer.of("tom", "java", 9));
 		assertThat(repository.findById("tom").isPresent()).isTrue();
 	}

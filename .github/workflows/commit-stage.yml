@@ -20,19 +20,11 @@ jobs:
         run: |
           chmod +x gradlew
           ./gradlew build
-#      - name: Generated test report
-#        uses: mikepenz/action-junit-report@v5
-#        if: success() || failure()
-#        with:
-#          report_paths: '**/build/test-results/test/*.xml'
       - name: Generated test report
-        uses: dorny/test-reporter@v1
-        if: always()
+        uses: mikepenz/action-junit-report@v5
+        if: success() || failure()
         with:
-          name: Gradle tests
-          path: '**/build/test-results/test/*.xml'
-          reporter: java-junit
-          fail-on-error: true
+          report_paths: '**/build/test-results/test/*.xml'
 #      - name: Code vulnerability scanning
 #        uses: anchore/scan-action@v6
 #        id: scan

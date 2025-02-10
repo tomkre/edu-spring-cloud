@@ -1,55 +1,25 @@
 package cz.tomkre.edu.spring;
 
-import lombok.SneakyThrows;
 import org.junit.jupiter.api.Test;
-import org.mockito.BDDMockito;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.reactive.AutoConfigureWebTestClient;
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.core.env.Environment;
-import org.springframework.http.MediaType;
-import org.springframework.test.context.ActiveProfiles;
-import org.springframework.test.web.reactive.server.WebTestClient;
-import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
-import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
+import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
+import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.test.context.TestPropertySource;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@SpringBootTest
-@AutoConfigureMockMvc
-@ActiveProfiles("dev")
+@DataJpaTest
+@AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
+@TestPropertySource(properties = "spring.datasource.url=jdbc:tc:postgresql:17.1-alpine://test")
 class ApplicationTests {
 
 	@Autowired
-	private MockMvc mockMvc;
-
-	@MockBean
-	private GreetingService greetingService;
-
-	@Autowired
-	private Environment environment;
+	private DeveloperRepository repository;
 
 	@Test
-	@SneakyThrows
 	void shouldHandle() {
-		BDDMockito.given(greetingService.getOne("en"))
-				.willThrow(new ResourceNotFoundException("Greeting for 'en' does not exist"));
-		mockMvc.perform(get("/api/greetings/en"))
-			.andExpectAll(
-				status().isNotFound()
-			);
-	}
-
-	@Test
-	void shouldVerifyConfigProps() {
-		assertThat(environment.getProperty("app.name")).isEqualTo("master [dev]");
+		repository.save(Developer.of("tom", "java", 9));
+		assertThat(repository.findById("tom").isPresent()).isTrue();
 	}
 
 }

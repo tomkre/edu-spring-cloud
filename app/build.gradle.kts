@@ -22,11 +22,14 @@ repositories {
 
 dependencies {
 	implementation("org.springframework.boot:spring-boot-starter")
-	implementation("org.springframework.boot:spring-boot-starter-web")
-	implementation("org.springframework.boot:spring-boot-starter-validation")
+	implementation("org.springframework.boot:spring-boot-starter-data-jpa")
+	runtimeOnly("org.postgresql:postgresql")
+	implementation("org.flywaydb:flyway-core")
+	implementation("org.flywaydb:flyway-database-postgresql")
+	implementation(platform("org.springframework.cloud:spring-cloud-dependencies:2023.0.3"))
 	developmentOnly("org.springframework.boot:spring-boot-devtools")
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
-	testImplementation("org.springframework.boot:spring-boot-starter-webflux")
+	testImplementation("org.testcontainers:postgresql:1.20.0")
 	testRuntimeOnly("org.junit.platform:junit-platform-launcher")
 }
 
@@ -40,4 +43,8 @@ tasks.named<Jar>("jar") {
 
 tasks.named<BootBuildImage>("bootBuildImage") {
 	imageName = "tomkre/eds-app:1.0"
+}
+
+tasks.bootRun {
+	systemProperty("spring.profiles.active", "dev")
 }

@@ -1,5 +1,6 @@
 package cz.tomkre.edu.spring;
 
+import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
@@ -11,6 +12,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 @DataJpaTest
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 @TestPropertySource(properties = "spring.datasource.url=jdbc:tc:postgresql:17.1-alpine://test")
+@Slf4j
 class ApplicationTests {
 
 	@Autowired
@@ -18,7 +20,7 @@ class ApplicationTests {
 
 	@Test
 	void shouldHandle() {
-		System.out.println("Running test shouldHandle...");
+		log.info("Running test shouldHandle...");
 		repository.save(Developer.of("tom", "java", 9));
 		assertThat(repository.findById("tom").isPresent()).isTrue();
 	}

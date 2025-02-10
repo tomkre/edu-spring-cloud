@@ -20,6 +20,11 @@ jobs:
         run: |
           chmod +x gradlew
           ./gradlew build
+      - name: Generated test report
+        uses: mikepenz/action-junit-report@v5
+        if: success() || failure()
+        with:
+          report_paths: '**/build/test-results/test/*.xml'
 #      - name: Code vulnerability scanning
 #        uses: anchore/scan-action@v6
 #        id: scan

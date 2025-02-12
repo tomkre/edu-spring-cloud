@@ -21,33 +21,20 @@ jobs:
         run: |
           chmod +x gradlew
           ./gradlew build
-#      - name: Generated test report
-#        uses: mikepenz/action-junit-report@v5
-#        if: success() || failure()
-#        with:
-#          report_paths: '**/build/test-results/test/*.xml'
-      - name: Generated test report
-        uses: dorny/test-reporter@v1
-        if: always()
+      - name: Code vulnerability scanning
+        uses: anchore/scan-action@v6
+        id: scan
         with:
-          name: Gradle tests
-          path: '**/build/test-results/test/*.xml'
-          reporter: java-junit
-          fail-on-error: true
-#      - name: Code vulnerability scanning
-#        uses: anchore/scan-action@v6
-#        id: scan
-#        with:
-#          path: "${{ github.workspace }}"
-#          fail-build: false
-#          severity-cutoff: high
-#      - name: Upload sarif file
-#        uses: actions/upload-artifact@v4
-#        with:
-#          name: sarif-report
-#          path: ${{ steps.scan.outputs.sarif }}
-#      - name: Upload vulnerability report
-#        uses: github/codeql-action/upload-sarif@v3
-#        if: success() || failure()
-#        with:
-#          sarif_file: ${{ steps.scan.outputs.sarif }}
+          path: "${{ github.workspace }}"
+          fail-build: false
+          severity-cutoff: high
+      - name: Upload sarif file
+        uses: actions/upload-artifact@v4
+        with:
+          name: sarif-report
+          path: ${{ steps.scan.outputs.sarif }}
+      - name: Upload vulnerability report
+        uses: github/codeql-action/upload-sarif@v3
+        if: success() || failure()
+        with:
+          sarif_file: ${{ steps.scan.outputs.sarif }}

@@ -13,7 +13,7 @@ jobs:
       - name: Main step
         run: |
           sleep 9
-          echo 'Running main step #1'
+          echo 'Running main step #2'
 #  build:
 #    name: Build and Test
 #    runs-on: ubuntu-22.04

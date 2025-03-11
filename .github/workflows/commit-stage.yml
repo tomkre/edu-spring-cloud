@@ -4,6 +4,7 @@ env:
   REGISTRY: ghcr.io
   IMAGE_NAME: tomkre/edu-spring-cloud
   VERSION: LATEST
+concurrency: build
 jobs:
   build:
     name: Build
@@ -12,7 +13,7 @@ jobs:
       - name: Main step
         run: |
           sleep 9
-          echo 'Running main step #4'
+          echo 'Running main step #1'
 #  build:
 #    name: Build and Test
 #    runs-on: ubuntu-22.04

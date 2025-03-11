@@ -1,2 +1,2 @@
-rootProject.name = "spring"
+rootProject.name = "github-service"
 include("app")

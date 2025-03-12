@@ -3,5 +3,7 @@ kind: Service
 metadata:
   name: master-service
 spec:
+  selector:
+    app: mas
   ports:
     - port: 8080

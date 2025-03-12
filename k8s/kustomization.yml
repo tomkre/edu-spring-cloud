@@ -1,3 +1,5 @@
 resources:
   - pod.yml
   - service.yml
+patches:
+  - path: patch-pod.yml

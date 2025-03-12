@@ -1,3 +1,12 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: mas-cfg
+data:
+  application.yml: |
+    app:
+      version: 1
+---
 apiVersion: apps/v1
 kind: Deployment
 metadata:

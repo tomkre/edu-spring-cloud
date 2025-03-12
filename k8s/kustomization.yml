@@ -3,5 +3,6 @@ resources:
   - service.yml
 configMapGenerator:
   - name: mas-cfg
+    behavior: replace
     files:
       - config/application.yml

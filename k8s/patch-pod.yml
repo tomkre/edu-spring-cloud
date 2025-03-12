@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: master-service
+spec:
+  containers:
+    - name: master-service
+      env:
+        - name: APP_VERSION
+          value: 2

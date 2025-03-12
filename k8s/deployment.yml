@@ -5,7 +5,7 @@ metadata:
 data:
   application.yml: |
     app:
-      version: 1
+      version: 1.1
 ---
 apiVersion: apps/v1
 kind: Deployment

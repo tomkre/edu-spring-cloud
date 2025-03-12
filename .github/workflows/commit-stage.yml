@@ -9,11 +9,12 @@ jobs:
   build:
     name: Build
     runs-on: ubuntu-22.04
+    env:
+      AUTHOR: tom
     steps:
       - name: Main step
         run: |
-          sleep 9
-          echo 'Running main step #3'
+          echo 'Author is ${{ env.AUTHOR }}
 #  build:
 #    name: Build and Test
 #    runs-on: ubuntu-22.04

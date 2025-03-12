@@ -1,5 +1,5 @@
 resources:
-  - pod.yml
+  - deployment.yml
   - service.yml
 configMapGenerator:
   - name: mas-cfg

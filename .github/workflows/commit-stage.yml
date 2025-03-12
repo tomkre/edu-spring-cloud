@@ -14,7 +14,7 @@ jobs:
     steps:
       - name: Main step
         run: |
-          echo 'Author is ${{ env.AUTHOR }}
+          echo 'Author is ${{ env.AUTHOR }}'
 #  build:
 #    name: Build and Test
 #    runs-on: ubuntu-22.04

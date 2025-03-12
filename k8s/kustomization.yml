@@ -1,5 +1,7 @@
 resources:
   - pod.yml
   - service.yml
-patches:
-  - path: patch-pod.yml
+configMapGenerator:
+  - name: mas-cfg
+    files:
+      - config/application.yml

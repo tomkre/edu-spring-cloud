@@ -8,4 +8,4 @@ configMapGenerator:
       - config/application.yml
 replicas:
   - name: master-service
-    count: 3
+    count: 2
